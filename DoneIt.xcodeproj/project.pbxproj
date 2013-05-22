@@ -16,6 +16,14 @@
 		2993F12F174AA98900D48C88 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 2993F12E174AA98900D48C88 /* Default.png */; };
 		2993F131174AA98900D48C88 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2993F130174AA98900D48C88 /* Default@2x.png */; };
 		2993F133174AA98900D48C88 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2993F132174AA98900D48C88 /* Default-568h@2x.png */; };
+		2993F13B174AA9D800D48C88 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2993F13A174AA9D800D48C88 /* CoreData.framework */; };
+		2993F13E174AAA8A00D48C88 /* DoneIts.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2993F13C174AAA8A00D48C88 /* DoneIts.xcdatamodeld */; };
+		2993F143174AC6CC00D48C88 /* _DoneIt.m in Sources */ = {isa = PBXBuildFile; fileRef = 2993F140174AC6CC00D48C88 /* _DoneIt.m */; };
+		2993F144174AC6CC00D48C88 /* DoneIt.m in Sources */ = {isa = PBXBuildFile; fileRef = 2993F142174AC6CC00D48C88 /* DoneIt.m */; };
+		2993F147174AC73400D48C88 /* DoneItsDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2993F146174AC73400D48C88 /* DoneItsDataModel.m */; };
+		2993F14D174ACA8C00D48C88 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2993F14C174ACA8C00D48C88 /* Storyboard.storyboard */; };
+		2993F150174ACBD300D48C88 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2993F14F174ACBD300D48C88 /* TestViewController.m */; };
+		2993F153174ACC8900D48C88 /* TestTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2993F152174ACC8900D48C88 /* TestTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +40,19 @@
 		2993F12E174AA98900D48C88 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		2993F130174AA98900D48C88 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		2993F132174AA98900D48C88 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		2993F13A174AA9D800D48C88 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		2993F13D174AAA8A00D48C88 /* DoneIts.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DoneIts.xcdatamodel; sourceTree = "<group>"; };
+		2993F13F174AC6CC00D48C88 /* _DoneIt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _DoneIt.h; sourceTree = "<group>"; };
+		2993F140174AC6CC00D48C88 /* _DoneIt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _DoneIt.m; sourceTree = "<group>"; };
+		2993F141174AC6CC00D48C88 /* DoneIt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoneIt.h; sourceTree = "<group>"; };
+		2993F142174AC6CC00D48C88 /* DoneIt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoneIt.m; sourceTree = "<group>"; };
+		2993F145174AC73400D48C88 /* DoneItsDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoneItsDataModel.h; sourceTree = "<group>"; };
+		2993F146174AC73400D48C88 /* DoneItsDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoneItsDataModel.m; sourceTree = "<group>"; };
+		2993F14C174ACA8C00D48C88 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
+		2993F14E174ACBD300D48C88 /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
+		2993F14F174ACBD300D48C88 /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
+		2993F151174ACC8900D48C88 /* TestTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestTableViewController.h; sourceTree = "<group>"; };
+		2993F152174ACC8900D48C88 /* TestTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2993F13B174AA9D800D48C88 /* CoreData.framework in Frameworks */,
 				2993F11D174AA98900D48C88 /* UIKit.framework in Frameworks */,
 				2993F11F174AA98900D48C88 /* Foundation.framework in Frameworks */,
 				2993F121174AA98900D48C88 /* CoreGraphics.framework in Frameworks */,
@@ -68,6 +90,7 @@
 		2993F11B174AA98900D48C88 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2993F13A174AA9D800D48C88 /* CoreData.framework */,
 				2993F11C174AA98900D48C88 /* UIKit.framework */,
 				2993F11E174AA98900D48C88 /* Foundation.framework */,
 				2993F120174AA98900D48C88 /* CoreGraphics.framework */,
@@ -78,6 +101,9 @@
 		2993F122174AA98900D48C88 /* DoneIt */ = {
 			isa = PBXGroup;
 			children = (
+				2993F14B174ACA4800D48C88 /* Controller */,
+				2993F148174ACA2800D48C88 /* View */,
+				2993F139174AA9B400D48C88 /* DataModel */,
 				2993F12B174AA98900D48C88 /* AppDelegate.h */,
 				2993F12C174AA98900D48C88 /* AppDelegate.m */,
 				2993F123174AA98900D48C88 /* Supporting Files */,
@@ -97,6 +123,39 @@
 				2993F132174AA98900D48C88 /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2993F139174AA9B400D48C88 /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+				2993F13F174AC6CC00D48C88 /* _DoneIt.h */,
+				2993F140174AC6CC00D48C88 /* _DoneIt.m */,
+				2993F141174AC6CC00D48C88 /* DoneIt.h */,
+				2993F142174AC6CC00D48C88 /* DoneIt.m */,
+				2993F145174AC73400D48C88 /* DoneItsDataModel.h */,
+				2993F146174AC73400D48C88 /* DoneItsDataModel.m */,
+				2993F13C174AAA8A00D48C88 /* DoneIts.xcdatamodeld */,
+			);
+			path = DataModel;
+			sourceTree = "<group>";
+		};
+		2993F148174ACA2800D48C88 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2993F14C174ACA8C00D48C88 /* Storyboard.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2993F14B174ACA4800D48C88 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				2993F14E174ACBD300D48C88 /* TestViewController.h */,
+				2993F14F174ACBD300D48C88 /* TestViewController.m */,
+				2993F151174ACC8900D48C88 /* TestTableViewController.h */,
+				2993F152174ACC8900D48C88 /* TestTableViewController.m */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -154,6 +213,7 @@
 				2993F12F174AA98900D48C88 /* Default.png in Resources */,
 				2993F131174AA98900D48C88 /* Default@2x.png in Resources */,
 				2993F133174AA98900D48C88 /* Default-568h@2x.png in Resources */,
+				2993F14D174ACA8C00D48C88 /* Storyboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -166,6 +226,12 @@
 			files = (
 				2993F129174AA98900D48C88 /* main.m in Sources */,
 				2993F12D174AA98900D48C88 /* AppDelegate.m in Sources */,
+				2993F13E174AAA8A00D48C88 /* DoneIts.xcdatamodeld in Sources */,
+				2993F143174AC6CC00D48C88 /* _DoneIt.m in Sources */,
+				2993F144174AC6CC00D48C88 /* DoneIt.m in Sources */,
+				2993F147174AC73400D48C88 /* DoneItsDataModel.m in Sources */,
+				2993F150174ACBD300D48C88 /* TestViewController.m in Sources */,
+				2993F153174ACC8900D48C88 /* TestTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,6 +348,19 @@
 			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		2993F13C174AAA8A00D48C88 /* DoneIts.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				2993F13D174AAA8A00D48C88 /* DoneIts.xcdatamodel */,
+			);
+			currentVersion = 2993F13D174AAA8A00D48C88 /* DoneIts.xcdatamodel */;
+			path = DoneIts.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 2993F111174AA98900D48C88 /* Project object */;
 }
