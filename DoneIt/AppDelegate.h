@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TOLAdAdapteriAds.h"
+#import "LARSAdController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

@@ -10,10 +10,12 @@
 #import "DoneItsDataModel.h"
 #import "DoneIt.h"
 
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [[LARSAdController sharedManager] registerAdClass:[TOLAdAdapteriAds class]];
     return YES;
 }
 

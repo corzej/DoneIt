@@ -10,47 +10,69 @@
 #import "TestViewController.h"
 
 
-@interface TestTableViewController () {
+@interface TestTableViewController () <UISearchDisplayDelegate> {
     NSFetchedResultsController *_fetchedResultsController;
+    int _numOfRow;
 }
+
+@property (nonatomic, strong) UISearchBar *searchBar;
+@property (nonatomic, strong) UISearchDisplayController *searchController;
+@property (nonatomic, strong) NSMutableArray *searchResults;
 
 @end
 
 @implementation TestTableViewController
-
-- (id)initWithStyle:(UITableViewStyle)style
-{
+- (id)initWithStyle:(UITableViewStyle)style {
     self = [super initWithStyle:style];
     if (self) {
-        // Custom initialization
+        
     }
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     [self loadDoneItData];
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [self setupSearchBar];
+    self.searchResults = [NSMutableArray array];
+    
+    
+    //iad
+    [[LARSAdController sharedManager] addAdContainerToViewInViewController:self];
+
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
+#pragma searchbar
+
+- (void) setupSearchBar {
+    self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
+    self.tableView.tableHeaderView = self.searchBar;
+    
+    self.searchController = [[UISearchDisplayController alloc] initWithSearchBar:self.searchBar
+                                                              contentsController:self];
+    self.searchController.searchResultsDataSource = self;
+    self.searchController.searchResultsDelegate = self;
+    self.searchController.delegate = self;
+    
+    CGPoint offset = CGPointMake(0, self.searchBar.frame.size.height);
+    self.tableView.contentOffset = offset;
+}
+
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
+    [self fileterForTerm:searchString];  
+    return YES;
+}
 
 #pragma methods
 - (void)loadDoneItData {
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:[DoneIt entityName]];
     [fetchRequest setPropertiesToFetch:[NSArray arrayWithObjects:@"content", @"end", @"start", @"timeout", nil]];
     [fetchRequest setFetchBatchSize:40];
-    NSSortDescriptor *sortByEndTime = [NSSortDescriptor sortDescriptorWithKey:@"end" ascending:YES];
+    NSSortDescriptor *sortByEndTime = [NSSortDescriptor sortDescriptorWithKey:@"start" ascending:YES];
     [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sortByEndTime]];
     
     _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
@@ -58,6 +80,26 @@
                                                                       sectionNameKeyPath:nil
                                                                                cacheName:nil];
     [_fetchedResultsController performFetch:nil];
+}
+
+- (void) fileterForTerm:(NSString *)term {
+    [self.searchResults removeAllObjects];
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
+    fetchRequest.entity = [DoneIt entityInManagedObjectContext:[[DoneItsDataModel sharedDataModel] mainContext]];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat: @"content contains[cd] %@",term];
+    fetchRequest.predicate = predicate;
+    
+    NSError *error = nil;
+    NSArray *results = [[[DoneItsDataModel sharedDataModel]mainContext] executeFetchRequest:fetchRequest error:&error];
+    if (error) {
+        NSLog(@"error it ne");
+    }
+    NSLog(@"results: %@",[results.lastObject valueForKey:@"content"]);
+    NSLog(@"results: %d",[results count]);
+
+    [self.searchResults addObjectsFromArray:results];
+
 }
 
 #pragma mark - Table view data source
@@ -70,63 +112,70 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     id<NSFetchedResultsSectionInfo> sectionInfo = [[_fetchedResultsController sections] objectAtIndex:section];
-    return [sectionInfo numberOfObjects];
+    _numOfRow = [sectionInfo numberOfObjects];
+    if (tableView == self.tableView) {
+        return _numOfRow;
+    } else {
+        return self.searchResults.count;
+    }
+
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    NSString *CellIdentifier;
+    if (indexPath.row == _numOfRow -1) {
+        CellIdentifier =@"workingCell";
+    } else {
+        CellIdentifier = @"Cell";
+    }
+    Custom1Cell *cell = (Custom1Cell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell = [[Custom1Cell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
-    DoneIt *doneit = [_fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = doneit.content;
-    NSLog(@"loging: %@", doneit.content);
+    DoneIt *doneit = nil;
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"hh:mm a"];
+
+    if (tableView == self.tableView) {
+        doneit = [_fetchedResultsController objectAtIndexPath:indexPath];
+        if ([CellIdentifier isEqualToString: @"Cell"]) {
+            cell.contentText.text = doneit.content;
+            NSString *dateString = [dateFormatter stringFromDate:doneit.end];
+            cell.timeText.text = dateString;
+            NSLog(@"loging: %@", doneit.content);
+            NSLog(@"loging: %@", doneit.end);
+            NSLog(@"loging: %@", doneit.start);
+            NSTimeInterval startDiff = [doneit.start timeIntervalSinceNow];
+            NSTimeInterval endDiff = [doneit.end timeIntervalSinceNow];
+            double diff = endDiff - startDiff;
+            int sec;
+            int min=0;
+            int hour=0;
+            sec = (int)diff%60;
+            min = (int)diff/60;
+            if (min >=60) {
+                hour = min/60;
+                min = min%60;
+            }
+            
+            NSString *diffText = [NSString stringWithFormat:@"%i:%i:%i", hour, min, sec];
+            cell.timeInterval.text = diffText;
+        } else {
+            NSString *dateString = [dateFormatter stringFromDate:doneit.start];
+            cell.timeText.text = dateString;
+        }
+    } else {
+        doneit = [self.searchResults objectAtIndex:indexPath.row];
+        cell.textLabel.text = doneit.content;
+    }
+
+
+    
     return cell;
 }
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 #pragma mark - Table view delegate
 

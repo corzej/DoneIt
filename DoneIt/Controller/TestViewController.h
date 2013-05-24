@@ -10,10 +10,13 @@
 #import <CoreData/CoreData.h>
 #import "DoneItsDataModel.h"
 #import "DoneIt.h"
+#import "LARSAdController.h"
+
 
 @interface TestViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UIButton *startBtn;
+@property (weak, nonatomic) IBOutlet UIButton *doneitBtn;
 @property (weak, nonatomic) IBOutlet UITextField *inputTextField;
 
 - (IBAction)doneItBtn:(id)sender;
