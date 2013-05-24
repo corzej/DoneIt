@@ -35,11 +35,6 @@
     [self loadDoneItData];
     [self setupSearchBar];
     self.searchResults = [NSMutableArray array];
-    
-    
-    //iad
-    [[LARSAdController sharedManager] addAdContainerToViewInViewController:self];
-
 }
 
 - (void)didReceiveMemoryWarning {
@@ -178,6 +173,16 @@
 }
 
 #pragma mark - Table view delegate
+
+- (UIView*)tableView:(UITableView*)tableView viewForFooterInSection:(NSInteger)section
+{
+    return [[LARSAdController sharedManager] containerView];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return [[LARSAdController sharedManager] containerView].frame.size.height;
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
