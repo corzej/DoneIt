@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Custom1Cell.h"
 #import "LARSAdController.h"
-
+#import "ECSlidingViewController.h"
 
 @interface TestTableViewController : UITableViewController
 

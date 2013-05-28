@@ -1,5 +1,6 @@
 PODS:
   - AdMob (6.4.1)
+  - ECSlidingViewController (0.10.0)
   - LARSAdController (3.0.2):
     - LARSAdController/Core
     - LARSAdController/GoogleAds
@@ -12,10 +13,12 @@ PODS:
     - LARSAdController/Core
 
 DEPENDENCIES:
+  - ECSlidingViewController
   - LARSAdController
 
 SPEC CHECKSUMS:
   AdMob: 9665d2b8abe4ac1f3584360849ead4b90ec912e9
+  ECSlidingViewController: fc9a9a6564d4a64c0d8c7cf5583d2b9a469ecd04
   LARSAdController: e1315b73aa332b94a0fd21788fcdd630e7242a23
 
 COCOAPODS: 0.19.1

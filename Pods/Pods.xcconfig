@@ -3,7 +3,7 @@ GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
 HEADER_SEARCH_PATHS = ${PODS_HEADERS_SEARCH_PATHS}
 LIBRARY_SEARCH_PATHS = "$(PODS_ROOT)/AdMob/"
 OTHER_LDFLAGS = -ObjC -ObjC -lGoogleAdMobAds -framework AudioToolbox -framework CoreGraphics -framework MessageUI -framework StoreKit -framework SystemConfiguration -framework iAd -weak_framework AdSupport
-PODS_BUILD_HEADERS_SEARCH_PATHS = "${PODS_ROOT}/BuildHeaders" "${PODS_ROOT}/BuildHeaders/AdMob" "${PODS_ROOT}/BuildHeaders/LARSAdController"
+PODS_BUILD_HEADERS_SEARCH_PATHS = "${PODS_ROOT}/BuildHeaders" "${PODS_ROOT}/BuildHeaders/AdMob" "${PODS_ROOT}/BuildHeaders/ECSlidingViewController" "${PODS_ROOT}/BuildHeaders/LARSAdController"
 PODS_HEADERS_SEARCH_PATHS = ${PODS_PUBLIC_HEADERS_SEARCH_PATHS}
-PODS_PUBLIC_HEADERS_SEARCH_PATHS = "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/AdMob" "${PODS_ROOT}/Headers/LARSAdController"
+PODS_PUBLIC_HEADERS_SEARCH_PATHS = "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/AdMob" "${PODS_ROOT}/Headers/ECSlidingViewController" "${PODS_ROOT}/Headers/LARSAdController"
 PODS_ROOT = ${SRCROOT}/Pods

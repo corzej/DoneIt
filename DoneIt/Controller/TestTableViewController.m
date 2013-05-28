@@ -13,15 +13,21 @@
 @interface TestTableViewController () <UISearchDisplayDelegate> {
     NSFetchedResultsController *_fetchedResultsController;
     int _numOfRow;
+    
 }
 
 @property (nonatomic, strong) UISearchBar *searchBar;
 @property (nonatomic, strong) UISearchDisplayController *searchController;
 @property (nonatomic, strong) NSMutableArray *searchResults;
+//slider view
+@property (nonatomic, assign) CGFloat peekLeftAmount;
 
 @end
 
 @implementation TestTableViewController
+//slider view
+@synthesize peekLeftAmount;
+
 - (id)initWithStyle:(UITableViewStyle)style {
     self = [super initWithStyle:style];
     if (self) {
@@ -35,6 +41,11 @@
     [self loadDoneItData];
     [self setupSearchBar];
     self.searchResults = [NSMutableArray array];
+    
+    //slider view
+    self.peekLeftAmount = 40.0f;
+    [self.slidingViewController setAnchorLeftPeekAmount:self.peekLeftAmount];
+    self.slidingViewController.underRightWidthLayout = ECVariableRevealWidth;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -140,9 +151,6 @@
             cell.contentText.text = doneit.content;
             NSString *dateString = [dateFormatter stringFromDate:doneit.end];
             cell.timeText.text = dateString;
-            NSLog(@"loging: %@", doneit.content);
-            NSLog(@"loging: %@", doneit.end);
-            NSLog(@"loging: %@", doneit.start);
             NSTimeInterval startDiff = [doneit.start timeIntervalSinceNow];
             NSTimeInterval endDiff = [doneit.end timeIntervalSinceNow];
             double diff = endDiff - startDiff;

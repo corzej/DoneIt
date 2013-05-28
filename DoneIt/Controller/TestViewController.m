@@ -18,14 +18,6 @@
 @implementation TestViewController
 @synthesize startBtn=_startBtn;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
@@ -42,11 +34,17 @@
     
     if (results.lastObject == nil) {
         self.startBtn.enabled = YES;
+        self.startBtn.hidden = NO;
         self.doneitBtn.enabled = NO;
+        self.doneitBtn.hidden = YES;
+        self.inputTextField.hidden =YES;
     }
     else {
         self.startBtn.enabled = NO;
+        self.startBtn.hidden = YES;
         self.doneitBtn.enabled = YES;
+        self.doneitBtn.hidden = NO;
+        self.inputTextField.hidden = NO;
     }
     
     //iad
@@ -79,9 +77,20 @@
 
 #pragma btn
 
+- (IBAction)revealRightMenu:(id)sender {
+    [self.view endEditing:YES];
+    [self.slidingViewController anchorTopViewTo:ECLeft];
+
+}
+
+- (IBAction)revealMenu:(id)sender {
+    [self.view endEditing:YES];
+    [self.slidingViewController anchorTopViewTo:ECRight];
+
+}
+//text = [text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]
 - (IBAction)doneItBtn:(id)sender {
-    if (context) {
-        
+    if (![[self.inputTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""] ) {
         NSFetchRequest *request = [[NSFetchRequest alloc] init];
         NSEntityDescription *entity = [NSEntityDescription entityForName:[DoneIt entityName] inManagedObjectContext:context];
         NSSortDescriptor *sortByTime = [NSSortDescriptor sortDescriptorWithKey:@"start" ascending:NO];
@@ -103,11 +112,13 @@
         nextDoneit.start = [NSDate date];
         
         [context save:nil];
-        
+        [self.view endEditing:YES];
 
-    } else {
-        NSLog(@"Context was nil :(");
     }
+    else{
+        NSLog(@"display a hud");
+    }
+
 }
 
 - (IBAction)startBtnTouched:(id)sender {
@@ -117,9 +128,17 @@
     DoneIt *doneit = [DoneIt insertInManagedObjectContext:context];
     doneit.start = [NSDate date];
     [context save:nil];
+    
     self.startBtn.enabled = NO;
+    self.startBtn.hidden = YES;
     self.doneitBtn.enabled = YES;
+    self.doneitBtn.hidden = NO;
+    self.inputTextField.hidden = NO;
 }
 
-
+//after push and came back remove keyboard and the text inside of inputextfield
+- (void)viewWillDisappear:(BOOL)animated {
+    self.inputTextField.text =@"";
+    [self resignFirstResponder];
+}
 @end

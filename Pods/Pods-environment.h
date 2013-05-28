@@ -12,6 +12,12 @@
 #define COCOAPODS_VERSION_MINOR_AdMob 4
 #define COCOAPODS_VERSION_PATCH_AdMob 1
 
+// ECSlidingViewController
+#define COCOAPODS_POD_AVAILABLE_ECSlidingViewController
+#define COCOAPODS_VERSION_MAJOR_ECSlidingViewController 0
+#define COCOAPODS_VERSION_MINOR_ECSlidingViewController 10
+#define COCOAPODS_VERSION_PATCH_ECSlidingViewController 0
+
 // LARSAdController
 #define COCOAPODS_POD_AVAILABLE_LARSAdController
 #define COCOAPODS_VERSION_MAJOR_LARSAdController 3
