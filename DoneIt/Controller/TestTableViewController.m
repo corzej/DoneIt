@@ -76,6 +76,18 @@
 #pragma methods
 - (void)loadDoneItData {
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:[DoneIt entityName]];
+    //testing date
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *components = [[NSDateComponents alloc] init];
+    components = [calendar components:(NSDayCalendarUnit | NSMonthCalendarUnit |NSYearCalendarUnit) fromDate:[NSDate date]];
+
+    
+    NSLog(@"Awesome time: %@", [calendar dateFromComponents:components]);
+    NSLog(@"not Awesome : %@", [NSDate date]);
+    
+//////set predicate
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"end >= %@",[calendar dateFromComponents:components]];
+    [fetchRequest setPredicate:predicate];
     [fetchRequest setPropertiesToFetch:[NSArray arrayWithObjects:@"content", @"end", @"start", @"timeout", nil]];
     [fetchRequest setFetchBatchSize:40];
     NSSortDescriptor *sortByEndTime = [NSSortDescriptor sortDescriptorWithKey:@"start" ascending:YES];
@@ -105,8 +117,7 @@
     NSLog(@"results: %d",[results count]);
 
     [self.searchResults addObjectsFromArray:results];
-
-}
+  }
 
 #pragma mark - Table view data source
 
@@ -130,7 +141,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *CellIdentifier;
-    if (indexPath.row == _numOfRow -1) {
+    if (indexPath.row == _numOfRow  ) {
         CellIdentifier =@"workingCell";
     } else {
         CellIdentifier = @"Cell";

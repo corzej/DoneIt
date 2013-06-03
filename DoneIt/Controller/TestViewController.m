@@ -50,6 +50,15 @@
     //iad
     [[LARSAdController sharedManager] addAdContainerToViewInViewController:self];
 
+    //dismiss keyboard
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
+                                   initWithTarget:self
+                                   action:@selector(dismissKeyboard)];
+    
+    [self.view addGestureRecognizer:tap];
+    
+    
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -60,6 +69,9 @@
 
 
 #pragma methods
+-(void)dismissKeyboard {
+    [[self inputTextField] resignFirstResponder];
+}
 
 - (void)loadDoneItData {
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:[DoneIt entityName]];
