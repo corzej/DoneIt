@@ -11,6 +11,8 @@
 @interface MenuViewController ()
 @property (nonatomic, strong) NSArray *menuItems;       //this will be the key
 @property (nonatomic, strong) NSDictionary *menuItemsNames;
+@property (nonatomic, assign) CGFloat rightRevealAmout;
+
 @end
 
 @implementation MenuViewController
@@ -18,7 +20,7 @@
 
 - (void)awakeFromNib
 {
-    self.menuItems = [NSArray arrayWithObjects:@"Done It", @"Today", @"YesterDay", nil];
+    self.menuItems = [NSArray arrayWithObjects:@"Done It", @"Today", @"All", nil];
     self.menuItemsNames =[NSDictionary dictionaryWithObjects: [NSArray arrayWithObjects:@"First", @"Today",@"All",nil] forKeys:menuItems];
 }
 
@@ -61,6 +63,27 @@
         self.slidingViewController.topViewController.view.frame = frame;
         [self.slidingViewController resetTopView];
     }];
+}
+
+
+//search bar
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
+{
+    [self.slidingViewController anchorTopViewOffScreenTo:ECRight animations:^{
+        CGRect frame = self.view.frame;
+        frame.origin.x = 0.0f;
+        if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) {
+            frame.size.width = [UIScreen mainScreen].bounds.size.height;
+        } else if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation)) {
+            frame.size.width = [UIScreen mainScreen].bounds.size.width;
+        }
+        self.view.frame = frame;
+    } onComplete:nil];
+}
+
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
+{
+
 }
 @end
 

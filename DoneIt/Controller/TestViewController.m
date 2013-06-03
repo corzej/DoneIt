@@ -107,21 +107,31 @@
         NSEntityDescription *entity = [NSEntityDescription entityForName:[DoneIt entityName] inManagedObjectContext:context];
         NSSortDescriptor *sortByTime = [NSSortDescriptor sortDescriptorWithKey:@"start" ascending:NO];
         [request setEntity:entity];
-        // [request setResultType:NSDictionaryResultType];
         [request setReturnsDistinctResults:YES];
         [request setSortDescriptors:[NSArray arrayWithObject:sortByTime]];
         
+        NSDate *_rightNow = [NSDate date];
         DoneIt *doneit = [[context executeFetchRequest:request error:nil]objectAtIndex:0];
-        //NSMutableArray *results = [[context executeFetchRequest:request
-        //                                                  error:nil] mutableCopy];
-        //DoneIt* doneit = [results objectAtIndex:0];
-  //      NSLog(@"button touched: %@", [doneit valueForKey:@"content"]);
-        doneit.end = [NSDate date];
+        doneit.end = _rightNow;
         doneit.content = self.inputTextField.text;
-
+//set day month and year of data recoreded time
+//I didn't use calendar for easy search...]
+        //testing date
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        NSDateComponents *components = [[NSDateComponents alloc] init];
+        //set day month year from end date
+        components = [calendar components:(NSDayCalendarUnit | NSMonthCalendarUnit |NSYearCalendarUnit) fromDate:_rightNow];
+        doneit.day = [NSNumber numberWithInt:[components day]];
+        doneit.month = [NSNumber numberWithInt:[components month]];
+        doneit.year = [NSNumber numberWithInt:[components year]];
+        
+        
 // doneit for new contents
         DoneIt *nextDoneit = [DoneIt insertInManagedObjectContext:context];
         nextDoneit.start = [NSDate date];
+        
+        
+        
         
         [context save:nil];
         [self.view endEditing:YES];

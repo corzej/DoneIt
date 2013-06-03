@@ -1,19 +1,16 @@
 //
-//  TestTableViewController.m
+//  AllViewController.m
 //  DoneIt
 //
-//  Created by eungJin on 5/20/13.
+//  Created by eungJin on 6/3/13.
 //  Copyright (c) 2013 rollintiger. All rights reserved.
 //
 
-#import "TestTableViewController.h"
-#import "TestViewController.h"
+#import "AllViewController.h"
 
-
-@interface TestTableViewController () <UISearchDisplayDelegate> {
+@interface AllViewController () <UISearchDisplayDelegate> {
     NSFetchedResultsController *_fetchedResultsController;
     int _numOfRow;
-    
 }
 
 @property (nonatomic, strong) UISearchBar *searchBar;
@@ -22,12 +19,20 @@
 //slider view
 @property (nonatomic, assign) CGFloat peekLeftAmount;
 
+
 @end
 
-@implementation TestTableViewController
+@implementation AllViewController
 //slider view
 @synthesize peekLeftAmount;
 
+- (id)initWithStyle:(UITableViewStyle)style {
+    self = [super initWithStyle:style];
+    if (self) {
+        
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -62,28 +67,27 @@
 }
 
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
-    [self fileterForTerm:searchString];  
+    [self fileterForTerm:searchString];
     return YES;
 }
 
 #pragma methods
 - (void)loadDoneItData {
-//if today table and if allday table
-
+    //if today table and if allday table
+    
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:[DoneIt entityName]];
     //testing date
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *components = [[NSDateComponents alloc] init];
-    //getting today date from calendar components with today's day month and year rest of unit is default(0) nsdate 
     components = [calendar components:(NSDayCalendarUnit | NSMonthCalendarUnit |NSYearCalendarUnit) fromDate:[NSDate date]];
-
     
-//    NSLog(@"Awesome time: %@", [calendar dateFromComponents:components]);
-//    NSLog(@"not Awesome : %@", [NSDate date]);
     
-//////set predicate
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"end >= %@",[calendar dateFromComponents:components]];
-    [fetchRequest setPredicate:predicate];
+  //  NSLog(@"Awesome time: %@", [calendar dateFromComponents:components]);
+   // NSLog(@"not Awesome : %@", [NSDate date]);
+    
+    //////set predicate
+ //   NSPredicate *predicate = [NSPredicate predicateWithFormat:@"end >= %@",[calendar dateFromComponents:components]];
+ //   [fetchRequest setPredicate:predicate];
     [fetchRequest setPropertiesToFetch:[NSArray arrayWithObjects:@"content", @"end", @"start", @"timeout", nil]];
     [fetchRequest setFetchBatchSize:40];
     NSSortDescriptor *sortByEndTime = [NSSortDescriptor sortDescriptorWithKey:@"start" ascending:YES];
@@ -101,7 +105,7 @@
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
     fetchRequest.entity = [DoneIt entityInManagedObjectContext:[[DoneItsDataModel sharedDataModel] mainContext]];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat: @"content contains[cd] %@",term];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat: @"content CONTAINS[cd] %@ OR day CONTAINS[cd] %@ OR month CONTAINS[cd] %@ OR year CONTAINS[cd] %@",term, term, term, term];
     fetchRequest.predicate = predicate;
     
     NSError *error = nil;
@@ -111,9 +115,9 @@
     }
     NSLog(@"results: %@",[results.lastObject valueForKey:@"content"]);
     NSLog(@"results: %d",[results count]);
-
+    
     [self.searchResults addObjectsFromArray:results];
-  }
+}
 
 #pragma mark - Table view data source
 
@@ -131,7 +135,7 @@
     } else {
         return self.searchResults.count;
     }
-
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -151,9 +155,8 @@
     DoneIt *doneit = nil;
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"hh:mm a"];
-
+    
     if (tableView == self.tableView) {
-        //duration of worked time
         doneit = [_fetchedResultsController objectAtIndexPath:indexPath];
         if ([CellIdentifier isEqualToString: @"Cell"]) {
             cell.contentText.text = doneit.content;
@@ -182,8 +185,8 @@
         doneit = [self.searchResults objectAtIndex:indexPath.row];
         cell.textLabel.text = doneit.content;
     }
-
-
+    
+    
     
     return cell;
 }
