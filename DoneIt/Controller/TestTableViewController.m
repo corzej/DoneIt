@@ -28,6 +28,7 @@
 //slider view
 @synthesize peekLeftAmount;
 
+#pragma mark - View Life Cycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -35,17 +36,37 @@
     [self setupSearchBar];
     self.searchResults = [NSMutableArray array];
     
-    //slider view
+//ECSlider view
     self.peekLeftAmount = 40.0f;
     [self.slidingViewController setAnchorLeftPeekAmount:self.peekLeftAmount];
     self.slidingViewController.underRightWidthLayout = ECVariableRevealWidth;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
+#pragma mark - Data Loading
+
+- (void)loadDoneItData {    
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:[DoneIt entityName]];
+    NSCalendar *calendar = [NSCalendar currentCalendar];        //use current system calendar
+    NSDateComponents *components = [[NSDateComponents alloc] init];
+    components = [calendar components: (NSDayCalendarUnit | NSMonthCalendarUnit |NSYearCalendarUnit)
+                             fromDate:[NSDate date]];       //use current date to get day, month and year
+
+//set predicate to get only today's data
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"end >= %@",[calendar dateFromComponents:components]];
+    [fetchRequest setPredicate:predicate];
+    [fetchRequest setPropertiesToFetch:[NSArray arrayWithObjects:@"content", @"end", @"start", @"timeout", nil]];
+    [fetchRequest setFetchBatchSize:40];
+    NSSortDescriptor *sortByEndTime = [NSSortDescriptor sortDescriptorWithKey:@"start" ascending:YES];
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sortByEndTime]];
+    
+    _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
+                                                                    managedObjectContext:[[DoneItsDataModel sharedDataModel] mainContext]
+                                                                      sectionNameKeyPath:nil
+                                                                               cacheName:nil];
+    [_fetchedResultsController performFetch:nil];
 }
 
-#pragma searchbar
+#pragma mark - SearchBar
 
 - (void) setupSearchBar {
     self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
@@ -65,37 +86,6 @@
     [self fileterForTerm:searchString];  
     return YES;
 }
-
-#pragma methods
-- (void)loadDoneItData {
-//if today table and if allday table
-
-    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:[DoneIt entityName]];
-    //testing date
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDateComponents *components = [[NSDateComponents alloc] init];
-    //getting today date from calendar components with today's day month and year rest of unit is default(0) nsdate 
-    components = [calendar components:(NSDayCalendarUnit | NSMonthCalendarUnit |NSYearCalendarUnit) fromDate:[NSDate date]];
-
-    
-//    NSLog(@"Awesome time: %@", [calendar dateFromComponents:components]);
-//    NSLog(@"not Awesome : %@", [NSDate date]);
-    
-//////set predicate
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"end >= %@",[calendar dateFromComponents:components]];
-    [fetchRequest setPredicate:predicate];
-    [fetchRequest setPropertiesToFetch:[NSArray arrayWithObjects:@"content", @"end", @"start", @"timeout", nil]];
-    [fetchRequest setFetchBatchSize:40];
-    NSSortDescriptor *sortByEndTime = [NSSortDescriptor sortDescriptorWithKey:@"start" ascending:YES];
-    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sortByEndTime]];
-    
-    _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
-                                                                    managedObjectContext:[[DoneItsDataModel sharedDataModel] mainContext]
-                                                                      sectionNameKeyPath:nil
-                                                                               cacheName:nil];
-    [_fetchedResultsController performFetch:nil];
-}
-
 - (void) fileterForTerm:(NSString *)term {
     [self.searchResults removeAllObjects];
     
@@ -111,9 +101,11 @@
     }
     NSLog(@"results: %@",[results.lastObject valueForKey:@"content"]);
     NSLog(@"results: %d",[results count]);
-
+    
     [self.searchResults addObjectsFromArray:results];
-  }
+}
+
+
 
 #pragma mark - Table view data source
 

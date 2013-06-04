@@ -19,10 +19,11 @@
 @synthesize startBtn=_startBtn;
 
 
+#pragma mark - View Life Cycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    //search if we need a starBtn or not
+//search if we need a starBtn or not
    context = [[DoneItsDataModel sharedDataModel] mainContext];
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:[DoneIt entityName] inManagedObjectContext:context];
@@ -30,7 +31,6 @@
     NSPredicate *searchFilter = [NSPredicate predicateWithFormat:@"end = nil"];
     [request setPredicate:searchFilter];
     NSArray *results = [context executeFetchRequest:request error:nil];
-   // [self loadDoneItData];
     
     if (results.lastObject == nil) {
         self.startBtn.enabled = YES;
@@ -47,32 +47,27 @@
         self.inputTextField.hidden = NO;
     }
     
-    //iad
+//iad Singleton
     [[LARSAdController sharedManager] addAdContainerToViewInViewController:self];
 
-    //dismiss keyboard
+//dismiss keyboard
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
                                    initWithTarget:self
                                    action:@selector(dismissKeyboard)];
-    
     [self.view addGestureRecognizer:tap];
-    
-    
-
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
-#pragma methods
+#pragma mark - Keyboards
 -(void)dismissKeyboard {
     [[self inputTextField] resignFirstResponder];
 }
+//After the view is pushed the keyboard will be disapear if TextField is empty.
+- (void)viewWillDisappear:(BOOL)animated {
+    self.inputTextField.text =@"";
+    [self resignFirstResponder];
+}
 
+#pragma mark - Data Loading
 - (void)loadDoneItData {
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:[DoneIt entityName]];
     [fetchRequest setPropertiesToFetch:[NSArray arrayWithObjects:@"end", nil]];
@@ -87,8 +82,7 @@
     [_fetchedResultsController performFetch:nil];
 }
 
-#pragma btn
-
+#pragma mark - Buttons for ECSlider
 - (IBAction)revealRightMenu:(id)sender {
     [self.view endEditing:YES];
     [self.slidingViewController anchorTopViewTo:ECLeft];
@@ -100,8 +94,10 @@
     [self.slidingViewController anchorTopViewTo:ECRight];
 
 }
-//text = [text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]
+
+#pragma mark - Buttons for Operations
 - (IBAction)doneItBtn:(id)sender {
+//Check if the TextField is empty
     if (![[self.inputTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""] ) {
         NSFetchRequest *request = [[NSFetchRequest alloc] init];
         NSEntityDescription *entity = [NSEntityDescription entityForName:[DoneIt entityName] inManagedObjectContext:context];
@@ -116,23 +112,17 @@
         doneit.content = self.inputTextField.text;
 //set day month and year of data recoreded time
 //I didn't use calendar for easy search...]
-        //testing date
         NSCalendar *calendar = [NSCalendar currentCalendar];
         NSDateComponents *components = [[NSDateComponents alloc] init];
-        //set day month year from end date
+//set day month year from end date
         components = [calendar components:(NSDayCalendarUnit | NSMonthCalendarUnit |NSYearCalendarUnit) fromDate:_rightNow];
         doneit.day = [NSNumber numberWithInt:[components day]];
         doneit.month = [NSNumber numberWithInt:[components month]];
         doneit.year = [NSNumber numberWithInt:[components year]];
-        
-        
 // doneit for new contents
         DoneIt *nextDoneit = [DoneIt insertInManagedObjectContext:context];
         nextDoneit.start = [NSDate date];
-        
-        
-        
-        
+
         [context save:nil];
         [self.view endEditing:YES];
 
@@ -144,9 +134,7 @@
 }
 
 - (IBAction)startBtnTouched:(id)sender {
-    
-    NSLog(@"Context is ready!");
-    
+// this will show only first time and after time is expired.
     DoneIt *doneit = [DoneIt insertInManagedObjectContext:context];
     doneit.start = [NSDate date];
     [context save:nil];
@@ -158,9 +146,4 @@
     self.inputTextField.hidden = NO;
 }
 
-//after push and came back remove keyboard and the text inside of inputextfield
-- (void)viewWillDisappear:(BOOL)animated {
-    self.inputTextField.text =@"";
-    [self resignFirstResponder];
-}
 @end

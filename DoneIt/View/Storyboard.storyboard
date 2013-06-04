@@ -369,18 +369,19 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="jrO-qc-p7v" secondAttribute="bottom" constant="1" id="6hg-5h-4gW"/>
-                                    <constraint firstItem="tKR-b8-if2" firstAttribute="top" secondItem="OUf-U2-fwZ" secondAttribute="top" type="default" id="H1Q-sJ-RE4"/>
+                                    <constraint firstItem="tKR-b8-if2" firstAttribute="bottom" secondItem="jrO-qc-p7v" secondAttribute="bottom" type="default" id="DYk-xd-oxi"/>
+                                    <constraint firstItem="tKR-b8-if2" firstAttribute="trailing" secondItem="jrO-qc-p7v" secondAttribute="trailing" type="default" id="HdM-bt-XQG"/>
                                     <constraint firstItem="tKR-b8-if2" firstAttribute="leading" secondItem="OUf-U2-fwZ" secondAttribute="leading" constant="6" id="VyP-Ee-sfN"/>
                                     <constraint firstItem="wIW-hM-jrK" firstAttribute="trailing" secondItem="jrO-qc-p7v" secondAttribute="trailing" type="default" id="azX-xB-4DI"/>
-                                    <constraint firstItem="wIW-hM-jrK" firstAttribute="trailing" secondItem="tKR-b8-if2" secondAttribute="trailing" type="default" id="dbh-7E-RmD"/>
                                     <constraint firstItem="wIW-hM-jrK" firstAttribute="top" secondItem="OUf-U2-fwZ" secondAttribute="top" constant="5" id="i3O-ga-ikx"/>
+                                    <constraint firstItem="tKR-b8-if2" firstAttribute="top" secondItem="OUf-U2-fwZ" secondAttribute="top" constant="20" type="default" id="lw2-Ah-XB1"/>
                                     <constraint firstItem="wIW-hM-jrK" firstAttribute="leading" secondItem="jrO-qc-p7v" secondAttribute="leading" type="default" id="lxU-vw-tsp"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="contentText" destination="tKR-b8-if2" id="fsC-fO-uLf"/>
                                     <outlet property="timeInterval" destination="wIW-hM-jrK" id="Tud-mz-Dcc"/>
                                     <outlet property="timeText" destination="jrO-qc-p7v" id="IbD-sc-a2g"/>
+                                    <segue destination="fS4-lF-djI" kind="push" id="4L1-76-LVx"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="workingCell" rowHeight="26" id="35p-Ds-DPw" customClass="Custom1Cell">
@@ -429,6 +430,21 @@
             </objects>
             <point key="canvasLocation" x="1080" y="-96"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="acy-Li-dZx">
+            <objects>
+                <viewController id="fS4-lF-djI" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="L6g-mJ-2zL">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="C0N-GG-Pdk"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0ET-4B-kCX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1429" y="-93"/>
+        </scene>
         <!--Menu Right View Controller-->
         <scene sceneID="AoK-O4-ZOV">
             <objects>
@@ -441,7 +457,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kN1-Vr-IaH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1532" y="-106"/>
+            <point key="canvasLocation" x="1775" y="-122"/>
         </scene>
         <!--Menu View Controller-->
         <scene sceneID="7Yw-Qm-KZy">

@@ -5,6 +5,7 @@
 //  Created by eungJin on 5/20/13.
 //  Copyright (c) 2013 rollintiger. All rights reserved.
 //
+//  This is the class that is used for data entry
 
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>

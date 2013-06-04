@@ -18,6 +18,9 @@
 @implementation MenuViewController
 @synthesize menuItems;
 
+
+#pragma mark - View Life Cycle
+
 - (void)awakeFromNib
 {
     self.menuItems = [NSArray arrayWithObjects:@"Done It", @"Today", @"All", nil];
@@ -33,6 +36,7 @@
 
 }
 
+#pragma TableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)sectionIndex
 {
     return self.menuItems.count;
@@ -51,6 +55,7 @@
     return cell;
 }
 
+#pragma TableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *identifier = [NSString stringWithFormat:@"%@Top",[self.menuItemsNames objectForKey:[self.menuItems objectAtIndex:indexPath.row]]];
@@ -65,25 +70,5 @@
     }];
 }
 
-
-//search bar
-- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
-{
-    [self.slidingViewController anchorTopViewOffScreenTo:ECRight animations:^{
-        CGRect frame = self.view.frame;
-        frame.origin.x = 0.0f;
-        if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) {
-            frame.size.width = [UIScreen mainScreen].bounds.size.height;
-        } else if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation)) {
-            frame.size.width = [UIScreen mainScreen].bounds.size.width;
-        }
-        self.view.frame = frame;
-    } onComplete:nil];
-}
-
-- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
-{
-
-}
 @end
 

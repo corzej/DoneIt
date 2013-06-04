@@ -26,31 +26,20 @@
 //slider view
 @synthesize peekLeftAmount;
 
-- (id)initWithStyle:(UITableViewStyle)style {
-    self = [super initWithStyle:style];
-    if (self) {
-        
-    }
-    return self;
-}
-
+#pragma mark - View Life Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self loadDoneItData];
     [self setupSearchBar];
     self.searchResults = [NSMutableArray array];
     
-    //slider view
+//ECSlider View
     self.peekLeftAmount = 40.0f;
     [self.slidingViewController setAnchorLeftPeekAmount:self.peekLeftAmount];
     self.slidingViewController.underRightWidthLayout = ECVariableRevealWidth;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
-
-#pragma searchbar
+#pragma mark - SearchBar
 
 - (void) setupSearchBar {
     self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
@@ -71,7 +60,7 @@
     return YES;
 }
 
-#pragma methods
+#pragma mark - Load Data
 - (void)loadDoneItData {
     //if today table and if allday table
     

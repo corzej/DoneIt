@@ -14,8 +14,6 @@
 
 @implementation IntialSlidingViewController
 
-
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -28,12 +26,6 @@
     
     self.topViewController = [storyboard instantiateViewControllerWithIdentifier:@"FirstTop"];
 
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end
