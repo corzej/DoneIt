@@ -37,6 +37,12 @@
     self.peekLeftAmount = 40.0f;
     [self.slidingViewController setAnchorLeftPeekAmount:self.peekLeftAmount];
     self.slidingViewController.underRightWidthLayout = ECVariableRevealWidth;
+    
+//custom Cell
+    [self.tableView registerClass:[Custom1Cell class]
+           forCellReuseIdentifier:@"Cell"];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.backgroundColor = [UIColor colorWithWhite:0.25 alpha:1.0];
 }
 
 #pragma mark - SearchBar

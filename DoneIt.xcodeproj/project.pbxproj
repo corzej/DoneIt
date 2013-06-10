@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		2908C786174D321100E11F98 /* Custom1Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2908C785174D321100E11F98 /* Custom1Cell.m */; };
 		292C66C4175CE31D0000F60E /* AllViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 292C66C3175CE31D0000F60E /* AllViewController.m */; };
+		2950B3B2175E036B00EA67E5 /* cell-bg-highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 2950B3AE175E036B00EA67E5 /* cell-bg-highlighted.png */; };
+		2950B3B3175E036B00EA67E5 /* cell-bg-highlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2950B3AF175E036B00EA67E5 /* cell-bg-highlighted@2x.png */; };
+		2950B3B4175E036B00EA67E5 /* cell-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 2950B3B0175E036B00EA67E5 /* cell-bg.png */; };
+		2950B3B5175E036B00EA67E5 /* cell-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2950B3B1175E036B00EA67E5 /* cell-bg@2x.png */; };
 		2952F35F174FFD3800A07869 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2952F35E174FFD3800A07869 /* MenuViewController.m */; };
 		2952F362174FFE9C00A07869 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2952F361174FFE9C00A07869 /* QuartzCore.framework */; };
 		2952F364174FFEA600A07869 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2952F363174FFEA600A07869 /* iAd.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -42,6 +46,10 @@
 		2908C785174D321100E11F98 /* Custom1Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Custom1Cell.m; sourceTree = "<group>"; };
 		292C66C2175CE31D0000F60E /* AllViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllViewController.h; sourceTree = "<group>"; };
 		292C66C3175CE31D0000F60E /* AllViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllViewController.m; sourceTree = "<group>"; };
+		2950B3AE175E036B00EA67E5 /* cell-bg-highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cell-bg-highlighted.png"; sourceTree = "<group>"; };
+		2950B3AF175E036B00EA67E5 /* cell-bg-highlighted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cell-bg-highlighted@2x.png"; sourceTree = "<group>"; };
+		2950B3B0175E036B00EA67E5 /* cell-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cell-bg.png"; sourceTree = "<group>"; };
+		2950B3B1175E036B00EA67E5 /* cell-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cell-bg@2x.png"; sourceTree = "<group>"; };
 		2952F35D174FFD3800A07869 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
 		2952F35E174FFD3800A07869 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
 		2952F361174FFE9C00A07869 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -101,6 +109,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2950B3AD175E033700EA67E5 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				2950B3AE175E036B00EA67E5 /* cell-bg-highlighted.png */,
+				2950B3AF175E036B00EA67E5 /* cell-bg-highlighted@2x.png */,
+				2950B3B0175E036B00EA67E5 /* cell-bg.png */,
+				2950B3B1175E036B00EA67E5 /* cell-bg@2x.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		2952F360174FFD4F00A07869 /* Sliders */ = {
 			isa = PBXGroup;
 			children = (
@@ -152,6 +171,7 @@
 		2993F122174AA98900D48C88 /* DoneIt */ = {
 			isa = PBXGroup;
 			children = (
+				2950B3AD175E033700EA67E5 /* Resources */,
 				2993F14B174ACA4800D48C88 /* Controller */,
 				2993F148174ACA2800D48C88 /* View */,
 				2993F139174AA9B400D48C88 /* DataModel */,
@@ -272,6 +292,10 @@
 				2993F131174AA98900D48C88 /* Default@2x.png in Resources */,
 				2993F133174AA98900D48C88 /* Default-568h@2x.png in Resources */,
 				2993F14D174ACA8C00D48C88 /* Storyboard.storyboard in Resources */,
+				2950B3B2175E036B00EA67E5 /* cell-bg-highlighted.png in Resources */,
+				2950B3B3175E036B00EA67E5 /* cell-bg-highlighted@2x.png in Resources */,
+				2950B3B4175E036B00EA67E5 /* cell-bg.png in Resources */,
+				2950B3B5175E036B00EA67E5 /* cell-bg@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

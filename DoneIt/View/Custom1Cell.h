@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface Custom1Cell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UILabel *contentText;
+@property (strong, nonatomic) IBOutlet UILabel *contentText;
 @property (weak, nonatomic) IBOutlet UILabel *timeInterval;
-@property (weak, nonatomic) IBOutlet UILabel *timeText;
+@property (strong, nonatomic) IBOutlet UILabel *timeText;
 @end
